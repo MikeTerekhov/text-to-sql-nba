@@ -85,6 +85,28 @@ Each notebook/script reports three metrics per query, aggregated over a dataset 
 
 Run `test_pretrained.ipynb`, `test_finetuned.ipynb`, or `test_rag.py` to reproduce numbers for each approach on any of the `train-data/` subsets.
 
+## Results
+
+Zero-shot baseline, evaluated across all `train-data/` subsets (`test_pretrained.ipynb`):
+
+| Subset | # queries | Valid SQL | Exact match | Result match |
+|---|---|---|---|---|
+| All training data | 1,044 | 68.6% | 14.4% | 35.8% |
+| `queries_from_game` | 838 | 76.1% | 13.8% | 38.3% |
+| `queries_from_team` | 52 | 86.5% | 59.6% | 78.8% |
+| `queries_from_other_stats` | 154 | 21.4% | 1.9% | 7.1% |
+| `with_join` | 185 | 19.5% | 0.0% | 4.9% |
+| `without_join` | 859 | 79.2% | 17.5% | 42.4% |
+| `less_than_90` | 245 | 84.5% | 43.7% | 65.3% |
+
+LoRA fine-tuned model (`test_finetuned.ipynb`), only run to completion on one subset:
+
+| Subset | # queries | Valid SQL | Exact match | Result match |
+|---|---|---|---|---|
+| `less_than_90` | 245 | 51.8% | 28.6% | 42.9% |
+
+> **Caveat:** these fine-tuned numbers are from an earlier LoRA checkpoint and cover only the `less_than_90` subset, where the zero-shot baseline actually scores higher. LoRA rank and prompting were both iterated on afterward (see commit history), but `test_finetuned.ipynb` and `test_rag.py` weren't re-run to completion against the final checkpoints, so current numbers for the fine-tuned and RAG approaches aren't saved anywhere in the repo — re-run those notebooks/script against `fine-tuned-model/` to reproduce up-to-date results.
+
 ## Usage
 
 ```bash
