@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.DS_Store
+venv/
+.venv/
+
+# Model weights and the NBA sqlite database are hosted on the Hugging Face Hub
+# (see README) rather than in this repo, since they're multiple GB.
+deepseek-coder-1.3b-instruct/
+fine-tuned-model/
+nba-data/
